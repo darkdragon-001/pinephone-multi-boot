@@ -11,7 +11,7 @@ bootargs_base="$serial $silent cma=256M console=tty1 consoleblank=0 panic=3 rw r
 kbuilds=../builds
 
 (
-	echo "device_id = Multi-Distro Demo Image"
+	echo "device_id = Distro Demo Image 0.1a"
 	no=0
 	for ddir in distros/*
 	do

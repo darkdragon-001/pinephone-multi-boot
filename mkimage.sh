@@ -28,8 +28,6 @@ mkfs.btrfs ${L}p2
 mkdir -p m
 mount -o compress-force=zstd ${L}p2 m
 
-PASS='$6$nzZZGV65imLStmVz$u/Z1litGJh5tV2NmvzeirBiPkwWmhD0CQ.xRzdOV26vMxURbQUDW8Nkss8mvYVzwQ5SnwvGV/.ttSG0Kmrg.L/'
-	
 for ddir in distros/*
 do
 	name=${ddir#distros/}
