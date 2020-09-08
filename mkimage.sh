@@ -35,14 +35,10 @@ do
 	name=${ddir#distros/}
 	btrfs subvolume create m/$name
 	bsdtar -xp --numeric-owner -C m/$name -f $ddir/rootfs.tar.zst
-
-	(
-		cd m/$name
-		sed -i '/mmcblk\|UUID/d' etc/fstab
-		sed -i "s#\$6\$.*#$PASS:::::::#" etc/shadow
-		sed -i "s#^root:.*#root:$PASS:::::::#" etc/shadow
-	)
 done
+
+./mkimage-apply-fixes.sh
 
 umount m
 losetup -d "$L"
+

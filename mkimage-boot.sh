@@ -21,7 +21,7 @@ kbuilds=../builds
 			source ./$ddir/config
 			
 			echo "no = $no"
-			echo "  name = $name"
+			echo "  name = $name $version"
 			echo "  atf = ../p-boot/dist/fw.bin"
 			echo "  dtb = $kbuilds/pp2-5.9/board.dtb"
 			#echo "  dtb2 = $kbuilds/pp2-5.9/board.dtb"
@@ -42,4 +42,4 @@ L=`losetup -P --show -f multi.img`
 ../p-boot/.build/p-boot-conf-native . boot-part.img
 losetup -d $L
 
-#dd if=../p-boot/.build/p-boot.bin of=multi.img bs=1024 seek=8 conv=notrunc
+dd if=../p-boot/.build/p-boot.bin of=multi.img bs=1024 seek=8 conv=notrunc
