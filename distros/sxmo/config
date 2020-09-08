@@ -1,0 +1,2 @@
+name="pmOS / sxmo"
+bootargs="init=/sbin/init PMOS_NO_OUTPUT_REDIRECT"

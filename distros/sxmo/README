@@ -1,0 +1,8 @@
+How to get rootfs
+-----------------
+
+# http://images.lrdu.org/pinephone/
+
+wget http://images.lrdu.org/pinephone/sxmo_pinephone-sd.0.1.8-20200726.img.xz
+xz -d sxmo_pinephone-sd.0.1.8-20200726.img.xz
+./extract.sh sxmo_pinephone-sd.0.1.8-20200726.img
