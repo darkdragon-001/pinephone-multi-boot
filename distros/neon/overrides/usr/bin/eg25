@@ -1,0 +1,23 @@
+#!/bin/bash
+
+start()
+{
+	echo "Enabling EG25 WWAN module"
+
+	echo 1 > /sys/class/modem-power/modem-power/device/powered
+}
+
+stop()
+{
+	echo "Disabling EG25 WWAN module"
+
+	echo 0 > /sys/class/modem-power/modem-power/device/powered
+}
+
+if [[ "$1" = "start" ]]; then
+    start
+fi
+
+if [[ "$1" = "stop" ]]; then
+    stop
+fi

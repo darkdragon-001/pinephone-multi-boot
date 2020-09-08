@@ -1,0 +1,8 @@
+How to get rootfs
+-----------------
+
+#https://images.plasma-mobile.org/pinephone/
+ 
+wget 'https://images.plasma-mobile.org/pinephone/plasma-mobile-neon-20200901-132942.img.gz'
+gzip -d plasma-mobile-neon-20200901-132942.img.gz
+./extract.sh plasma-mobile-neon-20200901-132942.img
