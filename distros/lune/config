@@ -1,0 +1,2 @@
+name="Lune OS"
+bootargs="bootmode=normal LUNEOS_NO_OUTPUT_REDIRECT"

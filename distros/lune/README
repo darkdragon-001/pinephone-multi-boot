@@ -1,0 +1,7 @@
+How to get rootfs
+-----------------
+
+# http://build.webos-ports.org/luneos-testing/images/pinephone/
+
+wget http://build.webos-ports.org/luneos-testing/images/pinephone/luneos-dev-image-pinephone-testing-0-111.rootfs.wic.gz
+zcat luneos-dev-image-pinephone-testing-0-111.rootfs.wic.gz | zstd -z - > rootfs.tar.zst
