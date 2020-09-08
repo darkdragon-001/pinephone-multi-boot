@@ -14,6 +14,12 @@ do
 		sed -i "s#\$6\$.*#$PASS:::::::#" etc/shadow
 		sed -i "s#^root:.*#root:$PASS:::::::#" etc/shadow
 
+		mkdir -p etc/systemd/journald.conf.d
+		cat <<EOF > etc/systemd/journald.conf.d/xnux.conf
+[Journal]
+Storage=none
+EOF
+
 		while IFS= read -r -d $'\0' src
 		do
 			dst="${src#$ddir/overrides/}"

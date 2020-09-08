@@ -6,7 +6,7 @@ fi
 
 # loglevel=15
 serial="console=ttyS0,115200 earlycon=ns16550a,mmio32,0x01c28000"
-#silent="quiet loglevel=1"
+silent="quiet loglevel=0 systemd.show_status=false"
 bootargs_base="$serial $silent cma=256M console=tty1 consoleblank=0 panic=3 rw rootwait root=PARTUUID=12345678-02 rootfstype=btrfs rootflags=compress-force=zstd,nodatacow,subvol"
 kbuilds=../builds
 
