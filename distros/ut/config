@@ -1,0 +1,2 @@
+name="Ubuntu Touch"
+bootargs="logo.nologo vt.global_cursor_default=0"

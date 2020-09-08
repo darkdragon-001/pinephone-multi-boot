@@ -1,0 +1,23 @@
+description "oFono Mobile telephony stack"
+
+start on started dbus
+stop on stopping dbus
+
+pre-start script
+	echo "Enabling EG25 WWAN module"
+	echo 1 > /sys/class/modem-power/modem-power/device/powered
+end script
+
+post-start script
+    /usr/bin/enable-modem
+end script
+
+post-stop script
+	echo "Disabling EG25 WWAN module"
+	echo 0 > /sys/class/modem-power/modem-power/device/powered
+end script
+
+expect fork
+respawn
+
+exec ofonod

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Wait until the modem is found
+/usr/share/ofono/scripts/list-modems | grep -q "quectelqmi"
+while [ $? -ne 0 ]; do
+    sleep 1
+/usr/share/ofono/scripts/list-modems | grep -q "quectelqmi"
+done
+
+sleep 2
+
+
+# Wait until the modem is enabled
+/usr/share/ofono/scripts/enable-modem | grep -q "quectelqmi"
+while [ $? -ne 0 ]; do
+    sleep 1
+    /usr/share/ofono/scripts/enable-modem
+done
+
+sleep 2
+/usr/share/ofono/scripts/online-modem

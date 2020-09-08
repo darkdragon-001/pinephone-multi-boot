@@ -1,0 +1,8 @@
+How to get rootfs
+-----------------
+
+# https://ci.ubports.com/job/rootfs/job/rootfs-pinephone-systemimage/
+
+wget https://ci.ubports.com/job/rootfs/job/rootfs-pinephone-systemimage/lastSuccessfulBuild/artifact/ubuntu-touch-pinephone.img.xz
+xz -d ubuntu-touch-pinephone.img.xz
+./extract.sh ubuntu-touch-pinephone.img
