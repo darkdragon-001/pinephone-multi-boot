@@ -1,0 +1,8 @@
+How to get rootfs
+-----------------
+
+# https://images.mobian-project.org/pinephone/nightly/
+
+wget https://images.mobian-project.org/pinephone/nightly/mobian-pinephone-20200901.img.gz
+gzip -d mobian-pinephone-20200901.img.gz
+./extract.sh mobian-pinephone-20200901.img

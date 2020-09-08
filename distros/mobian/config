@@ -1,0 +1,2 @@
+name="Mobian"
+bootargs="splash plymouth.ignore-serial-consoles vt.global_cursor_default=0"
