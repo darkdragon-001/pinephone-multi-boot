@@ -1,8 +1,8 @@
-How to get rootfs
------------------
+# How to get rootfs
+# -----------------
 
 # https://www.ironrobin.net/pureos/droppy/#/Images
 
 wget https://www.ironrobin.net/pureos/droppy/!/dl/Images/2020-09-07/pureos-pinephone-20200907.img.xz
 xz -d pureos-pinephone-20200907.img.xz
-./extract.sh pureos-pinephone-20200907.img
+sudo ./extract.sh pureos-pinephone-20200907.img

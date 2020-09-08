@@ -5,3 +5,4 @@
 
 wget http://build.webos-ports.org/luneos-testing/images/pinephone/luneos-dev-image-pinephone-testing-0-113.rootfs.wic.gz
 gzip -d luneos-dev-image-pinephone-testing-0-113.rootfs.wic.gz
+sudo ./extract.sh luneos-dev-image-pinephone-testing-0-113.rootfs.wic

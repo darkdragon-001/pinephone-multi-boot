@@ -1,2 +1,3 @@
+version=20200624
 name="Maemo Leste"
 bootargs="fbcon=rotate:1"
