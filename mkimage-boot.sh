@@ -23,10 +23,10 @@ kbuilds=../builds
 			echo "no = $no"
 			echo "  name = $name $version"
 			echo "  atf = ../p-boot/dist/fw.bin"
-			echo "  dtb = $kbuilds/pp2-5.9/board.dtb"
+			echo "  dtb = $kbuilds/ppd-5.9/board-1.2.dtb"
 			#echo "  dtb2 = $kbuilds/pp2-5.9/board.dtb"
 			#echo "  dtb1 = $kbuilds/pp1-5.9/board.dtb"
-			echo "  linux = $kbuilds/pp2-5.9/Image"
+			echo "  linux = $kbuilds/ppd-5.9/Image"
 			echo "  bootargs = $bootargs_base=$dist $bootargs"
 			echo "  splash = files/$dist.argb"
 		)
