@@ -34,7 +34,7 @@ EOF
 			chattr -i "$dst"
 			test -f ".xnux.eu/orig/$dst" || {
 				mkdir -p "$(dirname ".xnux.eu/orig/$dst")"
-				mv "$dst.bak" ".xnux.eu/orig/$dst"
+				cp "$dst" ".xnux.eu/orig/$dst"
 			}
 			cat "$src" > "$dst"
 			chattr +i "$dst"
