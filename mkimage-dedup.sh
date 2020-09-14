@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$(whoami)" != "root" ] ; then
-	exec sudo sh "$0" "$@"
+	exec sudo bash "$0" "$@"
 fi
 
 set -e -x

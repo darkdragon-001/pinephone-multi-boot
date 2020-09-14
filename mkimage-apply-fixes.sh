@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if [ "$(whoami)" != "root" ] ; then
+	exec sudo bash "$0" "$@"
+fi
 PASS='$6$nzZZGV65imLStmVz$u/Z1litGJh5tV2NmvzeirBiPkwWmhD0CQ.xRzdOV26vMxURbQUDW8Nkss8mvYVzwQ5SnwvGV/.ttSG0Kmrg.L/'
 
 for mdir in m/*
