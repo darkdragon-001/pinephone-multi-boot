@@ -40,3 +40,4 @@ done
 umount m
 losetup -d "$L"
 
+./mkimage-boot.sh
