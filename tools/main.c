@@ -138,7 +138,7 @@ next_entry:
 			gchar* csum = g_compute_checksum_for_data(G_CHECKSUM_SHA256, buf, entry_size);
 			char* dup_path = g_hash_table_lookup(ht, csum);
 			if (dup_path) {
-				printf("DUP: %s\n", dup_path);
+				//printf("DUP: %s\n", dup_path);
 
                                 archive_entry_set_size(entry, 0);
 
