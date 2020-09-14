@@ -47,6 +47,20 @@ static int copy_data(struct archive *ar, struct archive *aw)
 	}
 }
 
+const char* excludes[] = {
+	"./boot/",
+	"./lib/firmware/",
+	"./lib/modules/",
+	"./usr/lib/firmware/",
+	"./usr/lib/modules/",
+//	"./usr/share/doc/",
+//	"./usr/share/help/",
+//	"./usr/share/man/",
+//	"./usr/share/info/",
+//	"./usr/share/locale/",
+	"./usr/src/",
+};
+
 bool extract(const char* archive_path, const char* dst_prefix)
 {
 	struct archive_entry* entry;
@@ -74,6 +88,7 @@ bool extract(const char* archive_path, const char* dst_prefix)
 		goto err_close;
 	}
 
+next_entry:
 	while (true) {
                 char path[4096];
                 char lpath[4096];
@@ -85,6 +100,11 @@ bool extract(const char* archive_path, const char* dst_prefix)
 		if (ret != ARCHIVE_OK) {
 			printf("ERROR: Error reading archive %s\n", archive_error_string(a));
 			goto err_close;
+		}
+
+		for (int i = 0; i < G_N_ELEMENTS(excludes); i++) {
+			if (g_str_has_prefix(archive_entry_pathname(entry), excludes[i]))
+				goto next_entry;
 		}
 
 		snprintf(path, sizeof path, "%s/%s", dst_prefix, archive_entry_pathname(entry));
