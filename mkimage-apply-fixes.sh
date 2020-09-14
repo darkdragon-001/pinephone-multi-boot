@@ -3,7 +3,11 @@
 if [ "$(whoami)" != "root" ] ; then
 	exec sudo bash "$0" "$@"
 fi
+
 PASS='$6$nzZZGV65imLStmVz$u/Z1litGJh5tV2NmvzeirBiPkwWmhD0CQ.xRzdOV26vMxURbQUDW8Nkss8mvYVzwQ5SnwvGV/.ttSG0Kmrg.L/'
+
+mkdir -p m/ut/android/{cache,data,factory,firmware,odm,persist,system{,/vendor}}
+touch m/ut/userdata/.writable_image
 
 for mdir in m/*
 do
