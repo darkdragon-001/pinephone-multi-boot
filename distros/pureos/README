@@ -3,6 +3,6 @@
 
 # https://www.ironrobin.net/pureos/droppy/#/Images
 
-wget https://www.ironrobin.net/pureos/droppy/!/dl/Images/2020-09-07/pureos-pinephone-20200907.img.xz
-xz -d pureos-pinephone-20200907.img.xz
-sudo ./extract.sh pureos-pinephone-20200907.img
+wget https://www.ironrobin.net/pureos/droppy/!/dl/Images/2020-09-08/pureos-pinephone-20200908.img.xz
+xz -d pureos-pinephone-20200908.img.xz
+sudo ./extract.sh pureos-pinephone-20200908.img

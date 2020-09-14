@@ -1,3 +1,3 @@
-version=20200908
+version=20200912
 name="Mobian"
 bootargs="splash plymouth.ignore-serial-consoles vt.global_cursor_default=0"

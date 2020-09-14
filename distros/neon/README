@@ -2,7 +2,9 @@
 # -----------------
 
 # https://images.plasma-mobile.org/pinephone/
- 
-wget 'https://images.plasma-mobile.org/pinephone/plasma-mobile-neon-20200908-132519.img.gz'
-gzip -d plasma-mobile-neon-20200908-132519.img.gz
-sudo ./extract.sh plasma-mobile-neon-20200908-132519.img
+
+VER=20200912-132511
+
+wget "https://images.plasma-mobile.org/pinephone/plasma-mobile-neon-$VER.img.gz"
+gzip -d plasma-mobile-neon-$VER.img.gz
+sudo ./extract.sh plasma-mobile-neon-$VER.img

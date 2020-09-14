@@ -3,6 +3,8 @@
 
 # https://images.mobian-project.org/pinephone/nightly/
 
-wget https://images.mobian-project.org/pinephone/nightly/mobian-pinephone-20200908.img.gz
-gzip -d mobian-pinephone-20200908.img.gz
-sudo ./extract.sh mobian-pinephone-20200908.img
+VER=20200912
+
+wget https://images.mobian-project.org/pinephone/nightly/mobian-pinephone-$VER.img.gz
+gzip -d mobian-pinephone-$VER.img.gz
+sudo ./extract.sh mobian-pinephone-$VER.img

@@ -4,5 +4,7 @@
 # https://gitlab.com/sailfishos-porters-ci/dont_be_evil-ci/-/jobs
 # download  pinephone-1.1-rootfs  (artifacts.zip)
 
+VER=1.1-3.3.0.16-devel-20200909
+
 # unzip artifacts.zip
-bzcat pinephone-1.1/sfe-pinephone-1.1-3.3.0.16-devel-20200904/sfe-pinephone-1.1-3.3.0.16-devel-20200904.tar.bz2 | zstd -z - > rootfs.tar.zst
+bzcat pinephone-1.1/sfe-pinephone-$VER/sfe-pinephone-$VER.tar.bz2 | zstd -z - > rootfs.tar.zst

@@ -1,8 +1,8 @@
 # How to get rootfs
 # -----------------
 
-# https://maedevu.maemo.org/images/pinephone/
+# https://phoenix.maemo.org/view/Images/job/leste-image-pinephone/
 
-wget https://maedevu.maemo.org/images/pinephone/20200624/maemo-leste-1.0-arm64-pinephone-20200624.tar.gz
-zcat maemo-leste-1.0-arm64-pinephone-20200624.tar.gz | zstd -z - > rootfs.tar.zst
+wget https://phoenix.maemo.org/view/Images/job/leste-image-pinephone/lastSuccessfulBuild/artifact/arm-sdk/dist/maemo-leste-1.0-arm64-pinephone-20200906.tar.gz
+zcat maemo-leste-1.0-arm64-pinephone-20200906.tar.gz | zstd -z - > rootfs.tar.zst
 
