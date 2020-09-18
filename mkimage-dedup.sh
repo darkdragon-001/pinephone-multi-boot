@@ -9,7 +9,7 @@ set -e -x
 # make sure image fits on a typical 8GB SD card
 
 rm -f multi.img
-truncate -s 7500M multi.img
+truncate -s 7000M multi.img
 
 sfdisk -W always multi.img <<EOF
 label: dos
