@@ -17,11 +17,10 @@
 #define MAX_FSIZE (200 << 20)
 
 static GHashTable* ht;
-static uint8_t* buf;
 static size_t total;
 static size_t total_stored;
-/* "disk" archive for extraction */
-static struct archive* ad;
+static int status;
+G_LOCK_DEFINE_STATIC(shared);
 
 static int copy_data(struct archive *ar, struct archive *aw)
 {
@@ -65,8 +64,35 @@ bool extract(const char* archive_path, const char* dst_prefix)
 {
 	struct archive_entry* entry;
 	struct archive* a;
+	struct archive* ad;
+	uint8_t* buf;
 	FILE* f;
 	int ret;
+
+	/* this need to be large enough to contain the most files in the
+	 * archive, larger files will not be deduplicated */
+	buf = g_malloc(MAX_FSIZE);
+
+	ad = archive_write_disk_new();
+	g_assert(ad != NULL);
+
+	//archive_write_disk_set_standard_lookup(ad);
+
+	int flags = ARCHIVE_EXTRACT_ACL |
+             //ARCHIVE_EXTRACT_CLEAR_NOCHANGE_FFLAGS |
+             ARCHIVE_EXTRACT_FFLAGS |
+             ARCHIVE_EXTRACT_NO_OVERWRITE |
+             ARCHIVE_EXTRACT_OWNER |
+             ARCHIVE_EXTRACT_PERM |
+             ARCHIVE_EXTRACT_SECURE_NOABSOLUTEPATHS |
+             ARCHIVE_EXTRACT_SECURE_NODOTDOT |
+             ARCHIVE_EXTRACT_SECURE_SYMLINKS |
+             //ARCHIVE_EXTRACT_SPARSE |
+             ARCHIVE_EXTRACT_TIME |
+             ARCHIVE_EXTRACT_UNLINK |
+             ARCHIVE_EXTRACT_XATTR;
+
+	archive_write_disk_set_options(ad, flags);
 
 	printf("Processing: %s <= %s\n", dst_prefix, archive_path);
 
@@ -118,7 +144,9 @@ next_entry:
 		size_t entry_size = archive_entry_size(entry);
 
 		// update stats
+		G_LOCK(shared);
 		total += entry_size;
+		G_UNLOCK(shared);
 
 		if (archive_entry_size_is_set(entry) && entry_size > 0 && entry_size <= MAX_FSIZE) {
 			/* files that fit in our dedup buffer will be processed
@@ -136,8 +164,10 @@ next_entry:
 				memset(buf + len, 0, entry_size - len);
 
 			gchar* csum = g_compute_checksum_for_data(G_CHECKSUM_SHA256, buf, entry_size);
+			G_LOCK(shared);
 			char* dup_path = g_hash_table_lookup(ht, csum);
 			if (dup_path) {
+				G_UNLOCK(shared);
 				//printf("DUP: %s\n", dup_path);
 
                                 archive_entry_set_size(entry, 0);
@@ -177,6 +207,7 @@ next_entry:
 			} else {
 				total_stored += entry_size;
 				g_hash_table_insert(ht, csum, g_strdup(path));
+				G_UNLOCK(shared);
 
 				ret = archive_write_header(ad, entry);
 				if (ret != ARCHIVE_OK) {
@@ -221,67 +252,65 @@ next_entry:
 		}
 	}
 
+	g_free(buf);
 	archive_read_free(a);
+	archive_write_free(ad);
 	fclose(f);
 	return true;
 
 err_close:
+	g_free(buf);
 	archive_read_free(a);
+	archive_write_free(ad);
 	fclose(f);
 	return false;
 }
+
+static void extract_thread(gpointer data, gpointer user_data)
+{
+	gchar** vect = data;
+
+	if (!extract(vect[1], vect[0])) {
+		g_printerr("ERROR: Extraction failed for %s\n", vect[0]);
+
+		G_LOCK(shared);
+		status++;
+		G_UNLOCK(shared);
+	}
+}
+
+#ifndef PARALLEL
+#define PARALLEL 16
+#endif
 
 int main(int argc, char* argv[])
 {
 	int ret, i;
 	int status = 0;
+	GError* local_err = NULL;
 
 	setlocale(LC_ALL, "");
 
-	/* this need to be large enough to contain the most files in the
-	 * archive, larger files will not be deduplicated */
-	buf = malloc(MAX_FSIZE);
-	g_assert(buf != NULL);
-
 	ht = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
 
-	ad = archive_write_disk_new();
-	g_assert(ad != NULL);
-
-	//archive_write_disk_set_standard_lookup(ad);
-
-	int flags = ARCHIVE_EXTRACT_ACL |
-             //ARCHIVE_EXTRACT_CLEAR_NOCHANGE_FFLAGS |
-             ARCHIVE_EXTRACT_FFLAGS |
-             ARCHIVE_EXTRACT_NO_OVERWRITE |
-             ARCHIVE_EXTRACT_OWNER |
-             ARCHIVE_EXTRACT_PERM |
-             ARCHIVE_EXTRACT_SECURE_NOABSOLUTEPATHS |
-             ARCHIVE_EXTRACT_SECURE_NODOTDOT |
-             ARCHIVE_EXTRACT_SECURE_SYMLINKS |
-             //ARCHIVE_EXTRACT_SPARSE |
-             ARCHIVE_EXTRACT_TIME |
-             ARCHIVE_EXTRACT_UNLINK |
-             ARCHIVE_EXTRACT_XATTR;
-
-	archive_write_disk_set_options(ad, flags);
+	GThreadPool* pool = g_thread_pool_new(extract_thread, NULL, PARALLEL, TRUE, &local_err);
+	g_assert(local_err == NULL);
 
 	for (i = 1; i < argc; i++) {
 		gchar** vect = g_strsplit(argv[i], ":", 2);
 		if (g_strv_length(vect) == 2) {
-			if (!extract(vect[1], vect[0])) {
-				printf("ERROR: Extraction failed for %s\n", argv[i]);
-				status = 1;
-				break;
-			}
+			g_thread_pool_push(pool, vect, NULL);
 		} else {
-			printf("ERROR: Invalid spec: %s\n", argv[i]);
-			status = 1;
+			g_printerr("ERROR: Invalid spec: %s\n", argv[i]);
+
+			G_LOCK(shared);
+			status++;
+			G_UNLOCK(shared);
 			break;
 		}
 	}
 
-	archive_write_free(ad);
+	g_thread_pool_free(pool, FALSE, TRUE);
 
 	printf("Statistics:\n", total);
 	printf("  total  = %lu MiB\n", total / 1024 / 1024);
