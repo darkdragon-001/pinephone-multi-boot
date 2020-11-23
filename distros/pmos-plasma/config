@@ -1,3 +1,0 @@
-version=2020-09-11
-name="pmOS / Plasma Mobile"
-bootargs="init=/sbin/init PMOS_NO_OUTPUT_REDIRECT"

@@ -3,6 +3,8 @@
 
 # https://ci.ubports.com/job/rootfs/job/rootfs-pinephone-systemimage/
 
-wget https://ci.ubports.com/job/rootfs/job/rootfs-pinephone-systemimage/lastSuccessfulBuild/artifact/ubuntu-touch-pinephone.img.xz
-xz -d ubuntu-touch-pinephone.img.xz
-sudo ./extract.sh ubuntu-touch-pinephone.img
+TMP=`mktemp -d`
+curl -L -o $TMP/image.xz https://ci.ubports.com/job/rootfs/job/rootfs-pinephone-systemimage/lastSuccessfulBuild/artifact/ubuntu-touch-pinephone.img.xz
+xz -d $TMP/image.xz
+sudo ./extract.sh $TMP/image
+rm -rf $TMP

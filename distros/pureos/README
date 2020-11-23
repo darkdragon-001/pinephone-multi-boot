@@ -3,6 +3,10 @@
 
 # https://www.ironrobin.net/pureos/droppy/#/Images
 
-wget https://www.ironrobin.net/pureos/droppy/!/dl/Images/2020-09-08/pureos-pinephone-20200908.img.xz
-xz -d pureos-pinephone-20200908.img.xz
-sudo ./extract.sh pureos-pinephone-20200908.img
+VERSION=20200916
+
+TMP=`mktemp -d`
+curl -L -o $TMP/image.xz https://www.ironrobin.net/pureos/droppy/!/dl/Images/2020-09-16/pureos-pinephone-$VERSION.img.xz
+xz -d $TMP/image.xz
+sudo ../extract2.sh $TMP/image
+rm -rf $TMP

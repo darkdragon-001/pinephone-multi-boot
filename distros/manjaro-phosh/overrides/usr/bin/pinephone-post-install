@@ -1,0 +1,8 @@
+#!/bin/sh
+# This is the post install script for PinePhone devices!
+
+# Set chassis
+hostnamectl set-chassis handset
+
+# Disable this service, so it only gets run on first boot
+systemctl disable pinephone-post-install.service

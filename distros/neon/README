@@ -3,8 +3,10 @@
 
 # https://images.plasma-mobile.org/pinephone/
 
-VER=20200912-132511
+VERSION=20201123-084050
 
-wget "https://images.plasma-mobile.org/pinephone/plasma-mobile-neon-$VER.img.gz"
-gzip -d plasma-mobile-neon-$VER.img.gz
-sudo ./extract.sh plasma-mobile-neon-$VER.img
+TMP=`mktemp -d`
+curl -L -o $TMP/image.gz "https://images.plasma-mobile.org/pinephone/plasma-mobile-neon-$VERSION.img.gz"
+gzip -d $TMP/image.gz
+sudo ../extract1.sh $TMP/image
+rm -rf $TMP

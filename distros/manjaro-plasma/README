@@ -1,0 +1,12 @@
+# How to get rootfs
+# -----------------
+
+# https://kdebuild.manjaro.org/images/
+
+VERSION=201122
+
+TMP=`mktemp -d`
+curl -L -o $TMP/manjaro.img.xz https://kdebuild.manjaro.org/images/Manjaro-ARM-plasma-mobile-dev-pinephone-$VERSION.img.xz
+xz -d $TMP/manjaro.img.xz
+sudo ../extract2.sh $TMP/manjaro.img
+rm -rf $TMP

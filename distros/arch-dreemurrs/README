@@ -1,0 +1,12 @@
+# How to get rootfs
+# -----------------
+
+# https://github.com/dreemurrs-embedded/Pine64-Arch/releases
+
+TMP=`mktemp`
+VERSION=20201112
+
+wget https://github.com/dreemurrs-embedded/Pine64-Arch/releases/download/$VERSION/archlinux-pinephone-$VERSION.img.xz
+xzcat archlinux-pinephone-$VERSION.img.xz > $TMP
+sudo ../extract1.sh $TMP
+rm $TMP

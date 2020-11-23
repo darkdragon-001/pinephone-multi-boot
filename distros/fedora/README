@@ -1,0 +1,13 @@
+# How to get rootfs
+# -----------------
+
+# https://github.com/nikhiljha/pp-fedora-sdsetup/releases/
+
+VERSION=v0.2.0
+
+TMP=`mktemp -d`
+curl -L -o $TMP/fedora.tar.xz https://github.com/nikhiljha/pp-fedora-sdsetup/releases/download/$VERSION/fedora.tar.xz
+tar x -C $TMP -f $TMP/fedora.tar.xz
+rm $TMP/fedora.tar.xz
+sudo ../extract2.sh $TMP/fedora.img
+rm -rf $TMP

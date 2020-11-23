@@ -3,6 +3,10 @@
 
 # http://images.lrdu.org/pinephone/
 
-wget http://images.lrdu.org/pinephone/sxmo_pinephone-sd.0.1.8-20200726.img.xz
-xz -d sxmo_pinephone-sd.0.1.8-20200726.img.xz
-sudo ./extract.sh sxmo_pinephone-sd.0.1.8-20200726.img
+VERSION=nightly-202011090018
+
+TMP=`mktemp -d`
+curl -L -o $TMP/image.xz http://images.lrdu.org/pinephone/sxmo_pinephone-sd.$VERSION.img.xz
+xz -d $TMP/image.xz
+sudo ../extract2.sh $TMP/image.xz
+rm -rf $TMP
