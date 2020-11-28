@@ -27,6 +27,7 @@ do
 
 		sed -i '/mmcblk\|UUID\|LABEL/d' etc/fstab
 		sed -i "s#\$6\$.*#$PASS:::::::#" etc/shadow
+		sed -i "s#\$1\$.*#$PASS:::::::#" etc/shadow
 		sed -i "s#^root:.*#root:$PASS:::::::#" etc/shadow
 
 		mkdir -p etc/systemd/journald.conf.d
