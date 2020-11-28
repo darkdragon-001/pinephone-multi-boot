@@ -1,0 +1,13 @@
+# How to get rootfs
+# -----------------
+
+# https://osdn.net/projects/manjaro-arm/storage/pinephone/lomiri/
+
+VERSION=alpha1-20201003
+
+TMP=`mktemp -d`
+curl -L -o $TMP/manjaro.img.xz https://osdn.net/projects/manjaro-arm/storage/pinephone/lomiri/$VERSION/Manjaro-ARM-lomiri-pinephone-$VERSION.img.xz
+xz -d $TMP/manjaro.img.xz
+sudo ../extract2.sh $TMP/manjaro.img
+rm -rf $TMP
+
