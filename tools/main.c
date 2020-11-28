@@ -312,7 +312,7 @@ int main(int argc, char* argv[])
 
 	g_thread_pool_free(pool, FALSE, TRUE);
 
-	printf("Statistics:\n", total);
+	printf("Statistics:\n");
 	printf("  total  = %lu MiB\n", total / 1024 / 1024);
 	printf("  stored = %lu MiB\n", total_stored / 1024 / 1024);
 
