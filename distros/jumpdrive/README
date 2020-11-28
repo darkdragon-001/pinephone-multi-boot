@@ -8,5 +8,5 @@ VERSION=0.6
 TMP=`mktemp -d`
 curl -L -o $TMP/image.xz https://github.com/dreemurrs-embedded/Jumpdrive/releases/download/$VERSION/pine64-pinephone.img.xz
 xz -d $TMP/image.xz
-sudo ../extract1.sh $TMP/image
+sudo ./extract.sh $TMP/image
 rm -rf $TMP
