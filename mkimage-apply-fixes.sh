@@ -35,6 +35,11 @@ do
 Storage=none
 EOF
 
+		cat <<EOF > etc/machine-info
+PRETTY_HOSTNAME="PINE64 PinePhone"
+CHASSIS="handset"
+EOF
+
 		if [ $name = ut ] ; then
 			mkdir -p android/{cache,data,factory,firmware,odm,persist,system{,/vendor}}
 			touch userdata/.writable_image
