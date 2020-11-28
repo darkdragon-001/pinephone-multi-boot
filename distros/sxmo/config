@@ -1,3 +1,3 @@
-version=nightly-202011090018
+version=0.1.11-20201102
 name="pmOS / sxmo"
 bootargs="init=/sbin/init PMOS_NO_OUTPUT_REDIRECT"
