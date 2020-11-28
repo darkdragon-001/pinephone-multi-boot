@@ -7,4 +7,4 @@ VERSION=20201101
 
 #wget https://phoenix.maemo.org/view/Images/job/leste-image-pinephone/lastSuccessfulBuild/artifact/arm-sdk/dist/maemo-leste-1.0-arm64-pinephone-$VERSION.tar.gz
 wget https://phoenix.maemo.org/view/Images/job/leste-image-pinephone/20/artifact/arm-sdk/dist/maemo-leste-1.0-arm64-pinephone-20201101.tar.gz
-zcat maemo-leste-1.0-arm64-pinephone-$VERSION.tar.gz | zstd -z - > rootfs.tar.zst
+zcat maemo-leste-1.0-arm64-pinephone-$VERSION.tar.gz | zstd -z -T0 -19 - > rootfs.tar.zst

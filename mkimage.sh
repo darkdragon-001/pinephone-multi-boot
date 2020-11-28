@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$(whoami)" != "root" ] ; then
-	exec sudo sh "$0" "$@"
+	exec sudo bash "$0" "$@"
 fi
 
 set -e -x
@@ -17,8 +17,8 @@ label-id: 0x12345678
 unit: sectors
 sector-size: 512
 
-4M,124M,L,*
-128M,,L
+4M,196M,L,*
+200M,,L
 EOF
 
 L=`losetup -P --show -f $IMG`
@@ -39,6 +39,7 @@ done
 ./mkimage-apply-fixes.sh
 
 umount m
+rmdir m
 losetup -d "$L"
 
 ./mkimage-boot.sh

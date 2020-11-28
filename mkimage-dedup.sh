@@ -41,6 +41,7 @@ done
 ./mkimage-apply-fixes.sh
 
 umount m
+rmdir m
 losetup -d "$L"
 
 ./mkimage-boot.sh

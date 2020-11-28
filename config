@@ -1,2 +1,3 @@
+DEVICE_ID="Distro Demo Image 2020-11-23"
 IMG=/tmp/multi.img
 IMGSIZE=10000M

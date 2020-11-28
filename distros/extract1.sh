@@ -6,5 +6,6 @@ mkdir -p m
 mount ${L}p1 m
 bsdtar -cvf - -C m --numeric-owner . | zstd -z -T0 -19 - > rootfs.tar.zst
 umount m
+rmdir m
 
 losetup -d $L
