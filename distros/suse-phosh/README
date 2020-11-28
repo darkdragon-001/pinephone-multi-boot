@@ -1,0 +1,11 @@
+# How to get rootfs
+# -----------------
+
+# https://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/PinePhone/images/
+
+TMP=`mktemp -d`
+curl -L -o $TMP/opensuse.img.xz https://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/PinePhone/images/openSUSE-Tumbleweed-ARM-PHOSH-pinephone.aarch64.raw.xz
+xz -d $TMP/opensuse.img.xz
+sudo ./extract.sh $TMP/opensuse.img
+rm -rf $TMP
+
